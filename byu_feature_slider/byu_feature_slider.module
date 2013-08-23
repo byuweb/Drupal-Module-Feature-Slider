@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the BYU Feature Slider feature.
+ */
+
+include_once('byu_feature_slider.features.inc');
