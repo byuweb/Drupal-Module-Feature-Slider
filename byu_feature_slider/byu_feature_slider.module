@@ -1,7 +1,293 @@
 <?php
+
 /**
  * @file
  * Code for the BYU Feature Slider feature.
+ * 		- hook_node_info() - Creates a new content type 
+ *		- hook_node_type_inserts fields
+ * 		- hook_form() - returns a form to create and edit a node instance of our new content type
+ * 		- hook_block Creates a block to display the feature slider
+ * 
+ * @author Ephraim Sng, BYU Web Team <ephraim.sng@gmail.com>
+ * 
  */
 
-include_once('byu_feature_slider.features.inc');
+
+/**
+ * Implements hook_menu()
+ * 
+ * Creates menus for the 
+ */
+function byu_feature_slider_menu() {
+	// Creates a 'BYU' section on the administration page for BYU specific modules to use for their configuration and settings.
+	//TODO: Move this to an overall folder, not a specific module
+	$items['admin/config/byu'] = array(
+	  'title' => 'BYU',
+	  'description' => 'Settings for modules the specific to BYU.',
+	  'position' => 'left',
+	  'weight' => -15,
+	  'page callback' => 'system_admin_menu_block_page',
+	  'access arguments' => array('administer site configuration'),
+	  'file' => 'system.admin.inc',
+	  'file path' => drupal_get_path('module', 'system'),
+	);
+	
+	//Specific settings menu link for the module
+	$items['admin/config/byu/byu_feature_slider'] = array(
+		'title' => 'Feature Slider',
+		'description' => 'Configuration for the BYU feature slider',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('byu_feature_slider_admin_settings'),
+		'access arguments' => array('access administration pages'),
+		'type' => MENU_NORMAL_ITEM,
+		'file' => 'byu_feature_slider.admin.inc'
+	); 
+	
+	return $items;
+	
+}
+
+
+/**
+ * Implements hook_node_info().
+ * 
+ * Defines the module's content type. This can be seen on structure > types.
+ * Fields will be added later. 
+ */
+function byu_feature_slider_node_info() {
+	return array(
+		'byu_feature_slider' => array(
+			'name' => t('BYU Feature Slider'),
+			'base' => 'byu_feature_slider',
+			'description' => t('A slider which has an image, description, and link. Use as an attention grabber for featured content or latest news.'),
+			'title_label' => t('Headline'),
+			'locked' => TRUE,
+		),
+	);
+	
+}
+
+
+/**
+ * Implements hook_node_type_insert().
+ *
+ * Since Drupal will insert our new content type, we can add the fields we want.
+ *
+ * It is called for all inserts to the content type database, so
+ * we have to make sure we're only modifying the type we're
+ * concerned with.
+ */
+function byu_feature_slider_node_type_insert($content_type) {
+  if ($content_type -> type == 'byu_feature_slider') {
+	  
+    // Add the body field using Drupal node_add_body_field().
+    $body_instance = node_add_body_field($content_type, t('Description'));
+
+    // Create all the fields we are adding to our content type.
+    foreach (_byu_feature_slider_installed_fields() as $field) {
+      field_create_field($field);
+    }
+
+    // Create all the instances for our fields.
+    foreach (_byu_feature_slider_installed_instances() as $instance) {
+      $instance['entity_type'] = 'node';
+      $instance['bundle'] = 'byu_feature_slider';
+      field_create_instance($instance);
+    }
+	
+	//Move the add featured image link to 'add content' in the Navigation menu
+	//Get Navigation mlid
+	//Set the plid of node/add/byu-feature-slider to Navigation's mlid
+	
+	
+  }
+}
+
+
+
+/**
+ * Define the fields for our content type.
+ *
+ * This big array is factored into this function for readability.
+ *
+ * @return
+ *  An associative array specifying the fields we wish to add to our
+ *  new node type.
+ */
+function _byu_feature_slider_installed_fields() {
+	return array(
+		'byu_feature_slider_image' => array(
+			'field_name' => 'byu_feature_slider_image',
+			'type'       => 'image',
+	//		'settings'	 => array(),
+		),
+		'byu_feature_slider_color' => array(
+			'field_name' => 'byu_feature_slider_color',
+			'type'       => 'text',
+		),
+		'byu_feature_slider_border_color' => array(
+			'field_name' => 'byu_feature_slider_border_color',
+			'type'       => 'text',
+		),
+		'byu_feature_slider_text_color' => array(
+			'field_name' => 'byu_feature_slider_text_color',
+			'type'       => 'text',
+		),
+		'byu_feature_slider_link' => array(
+			'field_name' => 'byu_feature_slider_link',
+			'type'       => 'text',
+		),
+		'byu_feature_slider_sort_order' => array(
+			'field_name' => 'byu_feature_slider_sort_order',
+			'type'       => 'number_integer',
+		),
+	);
+}
+
+/**
+ * Define the field instances for our content type.
+ *
+ * The instance lets Drupal know which widget to use to allow the user to enter
+ * data and how to react in different view modes. 
+ *
+ * This big array is factored into this function for readability.
+ *
+ * @return
+ *  An associative array specifying the instances we wish to add to our new
+ *  node type.
+ */
+function _byu_feature_slider_installed_instances() {
+	return array(
+		'byu_feature_slider_image' => array(
+			'field_name' => 'byu_feature_slider_image',
+			'label'		 => t('Upload an image'),
+			'required'	 => TRUE,
+			'settings'	 => array('alt_field' => 1),
+			'widget'	 => array('type' => 'image_image', 'weight'	=> 2.10),
+		),
+		'byu_feature_slider_color' => array(
+			'field_name'  => 'byu_feature_slider_color',
+			'label'       => t('Background Color'),
+			'description' => t('Select the background color of the text area. Use hexadecimal notation.'),
+			'widget'      => array('type' => 'text_textfield'),
+		),
+		'byu_feature_slider_border_color' => array(
+			'field_name'  => 'byu_feature_slider_border_color',
+			'label' => t('Background Color Border'),
+			'description' => t('Select the text area\'s edge color to which the main color will transtion. Use hexadecimal notation.'),
+			'type'        => 'text',
+			'widget'      => array( 'type' => 'text_textfield'),
+		),
+		'byu_feature_slider_text_color' => array(
+			'field_name'  => 'byu_feature_slider_text_color',
+			'label' => t('Light or Dark Text?'),
+			'description' => t('The text should contrast the background color so it can be easily read.'),
+			'type'        => 'text',
+			'widget'      => array( 'type' => 'text_textfield'),
+		),
+		'byu_feature_slider_link' => array(
+			'field_name'  => 'byu_feature_slider_link',
+			'label' => t('Link'),
+			'description' => t('Have the image link to a page'),
+			'type'        => 'text',
+			'widget'      => array( 'type'    => 'text_textfield'),
+		),
+		'byu_feature_slider_sort_order' => array(
+			'field_name'  => 'byu_feature_slider_sort_order',
+			'label' => t('Sort Order'),
+			'description' => t('Defines the order of the slides if the slider setting is not set to randomized.'),
+			'type'        => 'text',
+			'widget'      => array('type' => 'number'),
+		)
+	);
+}
+
+
+/**
+ * Implement hook_form().
+ *
+ * Provides a form to add a new slider node
+ *
+ */
+function byu_feature_slider_form($node, $form_state) {
+	//Uses the schema
+	return node_content_form($node, $form_state);	
+}
+
+
+/**
+ * Custom content function. 
+ * 
+ * Gets all the published featured content types from the database
+ * 
+ * @return 
+ *   A result set of the targeted posts. Returns them as an array of node objects
+ */
+function get_published_sliders(){
+	//Get all NIDs of published feature_slider nodes.
+	// Return all nids of nodes of type "byu_feature_slider".
+	$nids = db_select('node', 'n')
+		->fields('n', array('nid'))
+		->fields('n', array('type'))
+		->condition('n.type', 'byu_feature_slider')
+		->execute()
+		->fetchCol(); // returns an indexed array
+
+	//Return the array node objects.
+	return node_load_multiple($nids);
+}
+
+
+/**
+ * Implements hook_block_info().
+ * 
+ * Declares a block which the user can assign to a region.
+ */
+function byu_feature_slider_block_info() {
+	$blocks['byu_feature_slider'] = array(
+		'info' => t('BYU Feature Slider'),
+		'cache' => DRUPAL_CACHE_PER_ROLE,
+	);
+	return $blocks;
+}
+
+
+/*
+ * Implementation of hook_theme().
+ * 
+ * Registers the template file with the module so Drupal is aware and knows to use it.
+ */
+function byu_feature_slider_theme() {
+	return array(
+		'byu_feature_slider_block' => array(
+			'template' => 'byu-feature-slider-block',
+			'variables' => array(
+				'nodes' => NULL,
+			),
+		),
+	//		'path' => drupal_get_path('module', 'byu_feature_slider') . '/templates'
+	);
+}
+
+
+/**
+ * Implements hook_block_view()
+ * 
+ * Outputs data into the block.
+ * @param type $delta 
+ */
+function byu_feature_slider_block_view($delta = '') {
+	switch ($delta) {
+		case 'byu_feature_slider':
+			$block['subject'] = t('');
+			if (user_access('access content')) {
+				$block['content'] = array(
+					'#theme' => 'byu_feature_slider_block',
+					'#nodes' => get_published_sliders(),
+				);
+			}	
+	}
+		
+	return $block;
+
+}

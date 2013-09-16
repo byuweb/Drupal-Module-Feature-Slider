@@ -1,19 +1,19 @@
-name = "BYU Feature Slider"
-description = "Enables the featured news slider on your front page."
-core = "7.x"
-package = BYU Suite
-version = "7.x-1.0"
-project = "byu_feature_slider"
-dependencies[] = "features"
-dependencies[] = "field_sql_storage"
-dependencies[] = "image"
-dependencies[] = "link"
-dependencies[] = "list"
-dependencies[] = "node"
-dependencies[] = "options"
-dependencies[] = "text"
-features[field][] = "node-feature-body"
-features[field][] = "node-feature-field_feature_image"
-features[field][] = "node-feature-field_feature_link"
-features[field][] = "node-feature-field_feature_sort"
-features[node][] = "feature"
+name		= BYU Feature Slider
+description = An attractive slider with a featured image, description, and link. As seen on BYU's homepage. 
+package		= BYU Suite
+core		= 7.x
+version		= 7.x-2.0
+
+dependencies[]	= "node"
+dependencies[]	= "image"
+dependencies[]	= "options"
+dependencies[]	= "text"
+
+files[] = byu_feature_slider.module
+files[] = byu_feature_slider.admin.inc
+
+stylesheets[all][] = byu_feature_slider.css
+
+scripts[] = slider.min.js
+
+configure = admin/config/byu/byu_feature_slider
