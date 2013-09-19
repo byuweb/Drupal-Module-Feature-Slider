@@ -2,11 +2,7 @@
 
 /**
  * @file
- * Code for the BYU Feature Slider feature.
- * 		- hook_node_info() - Creates a new content type 
- *		- hook_node_type_inserts fields
- * 		- hook_form() - returns a form to create and edit a node instance of our new content type
- * 		- hook_block Creates a block to display the feature slider
+ * Code for the BYU Feature Slider feature to enable a Slider content type with pre-defined fields.
  * 
  * @author Ephraim Sng, BYU Web Team <ephraim.sng@gmail.com>
  * 
@@ -19,19 +15,6 @@
  * Creates menus for the 
  */
 function byu_feature_slider_menu() {
-	// Creates a 'BYU' section on the administration page for BYU specific modules to use for their configuration and settings.
-	//TODO: Move this to an overall folder, not a specific module
-	$items['admin/config/byu'] = array(
-	  'title' => 'BYU',
-	  'description' => 'Settings for modules the specific to BYU.',
-	  'position' => 'left',
-	  'weight' => -15,
-	  'page callback' => 'system_admin_menu_block_page',
-	  'access arguments' => array('administer site configuration'),
-	  'file' => 'system.admin.inc',
-	  'file path' => drupal_get_path('module', 'system'),
-	);
-	
 	//Specific settings menu link for the module
 	$items['admin/config/byu/byu_feature_slider'] = array(
 		'title' => 'Feature Slider',
@@ -59,6 +42,7 @@ function byu_feature_slider_node_info() {
 		'byu_feature_slider' => array(
 			'name' => t('BYU Feature Slider'),
 			'base' => 'byu_feature_slider',
+			'comment' => array('status' => 1),
 			'description' => t('A slider which has an image, description, and link. Use as an attention grabber for featured content or latest news.'),
 			'title_label' => t('Headline'),
 			'locked' => TRUE,
@@ -99,10 +83,14 @@ function byu_feature_slider_node_type_insert($content_type) {
 	//Get Navigation mlid
 	//Set the plid of node/add/byu-feature-slider to Navigation's mlid
 	
+	//Turn off comments for the node type
+	variable_set('comment_byu_feature_slider', '1');
 	
+	//Set workflow settings to: publish but not pusblish to front page
+	variable_set("node_options_byu_feature_slider", array("status"));
+
   }
 }
-
 
 
 /**
@@ -119,23 +107,22 @@ function _byu_feature_slider_installed_fields() {
 		'byu_feature_slider_image' => array(
 			'field_name' => 'byu_feature_slider_image',
 			'type'       => 'image',
-	//		'settings'	 => array(),
 		),
 		'byu_feature_slider_color' => array(
 			'field_name' => 'byu_feature_slider_color',
-			'type'       => 'text',
+			'type'       => 'color_field_rgb',
 		),
 		'byu_feature_slider_border_color' => array(
 			'field_name' => 'byu_feature_slider_border_color',
-			'type'       => 'text',
+			'type'       => 'color_field_rgb',
 		),
 		'byu_feature_slider_text_color' => array(
 			'field_name' => 'byu_feature_slider_text_color',
-			'type'       => 'text',
+			'type'       => 'list_text',
 		),
 		'byu_feature_slider_link' => array(
 			'field_name' => 'byu_feature_slider_link',
-			'type'       => 'text',
+			'type'       => 'link_field',
 		),
 		'byu_feature_slider_sort_order' => array(
 			'field_name' => 'byu_feature_slider_sort_order',
@@ -162,44 +149,57 @@ function _byu_feature_slider_installed_instances() {
 			'field_name' => 'byu_feature_slider_image',
 			'label'		 => t('Upload an image'),
 			'required'	 => TRUE,
-			'settings'	 => array('alt_field' => 1),
-			'widget'	 => array('type' => 'image_image', 'weight'	=> 2.10),
+			'settings'	 => array('alt_field' => 1, 'file_directory' => 'byu_feature_slider_images', 'min_resolution' => '699x393'),
+			'widget'	 => array('type' => 'image_image'),
 		),
 		'byu_feature_slider_color' => array(
 			'field_name'  => 'byu_feature_slider_color',
 			'label'       => t('Background Color'),
-			'description' => t('Select the background color of the text area. Use hexadecimal notation.'),
-			'widget'      => array('type' => 'text_textfield'),
+			'description' => t('Select the background color of the text area.'),
+			'widget'	  => array('color_field_simple_widget'),
+			'settings'	  => array('show_input' => TRUE),
 		),
 		'byu_feature_slider_border_color' => array(
 			'field_name'  => 'byu_feature_slider_border_color',
-			'label' => t('Background Color Border'),
-			'description' => t('Select the text area\'s edge color to which the main color will transtion. Use hexadecimal notation.'),
-			'type'        => 'text',
-			'widget'      => array( 'type' => 'text_textfield'),
+			'label'		  => t('Background Color Border'),
+			'description' => t('Select the text area\'s edge color to which the main color will transtion.'),
+			'widget'	  => array('color_field_simple_widget'),
+			'settings'	  => array('show_input' => TRUE),
 		),
 		'byu_feature_slider_text_color' => array(
-			'field_name'  => 'byu_feature_slider_text_color',
-			'label' => t('Light or Dark Text?'),
-			'description' => t('The text should contrast the background color so it can be easily read.'),
-			'type'        => 'text',
-			'widget'      => array( 'type' => 'text_textfield'),
+			'field_name' => 'byu_feature_slider_text_color',
+			'label'		 => t('Light or Dark Text?'),
+			'description'=> t('The text should contrast the background color so it can be easily read.'),
+			'widget'	 => array('type'=> 'options_buttons'),
 		),
 		'byu_feature_slider_link' => array(
 			'field_name'  => 'byu_feature_slider_link',
-			'label' => t('Link'),
-			'description' => t('Have the image link to a page'),
-			'type'        => 'text',
-			'widget'      => array( 'type'    => 'text_textfield'),
+			'label'		  => t('Link'),
+			'description' => t('The link destination to which the image will redirect.'),
+			'settings'	  => array('title' => 'none'),
 		),
 		'byu_feature_slider_sort_order' => array(
 			'field_name'  => 'byu_feature_slider_sort_order',
 			'label' => t('Sort Order'),
 			'description' => t('Defines the order of the slides if the slider setting is not set to randomized.'),
-			'type'        => 'text',
-			'widget'      => array('type' => 'number'),
-		)
+		),
 	);
+}
+
+
+/**
+ * Implements hook_options_list()
+ * 
+ * This give the options lists to select from.
+ */
+function byu_feature_slider_list_options($field, $instance, $entity_type, $entity){
+	switch ($field) {
+		case 'byu_feature_slider_text_color':
+			return array(
+				0 => 'Light',
+				1 => 'Dark'
+			);
+	}
 }
 
 

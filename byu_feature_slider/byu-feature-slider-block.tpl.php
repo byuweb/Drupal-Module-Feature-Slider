@@ -10,6 +10,10 @@
  *
  */
 
+//Check if user selected as randomize
+
+//Pull the sort order
+
 $html = 
 	'<div id="feature">'.
 		'<ul id="slider">';
@@ -25,7 +29,7 @@ $html =
 			$color =  field_get_items('node', $node, 'byu_feature_slider_color');
 			$color =  render(field_view_value('node', $node, 'byu_feature_slider_color', $color[0])); 
 			
-			$border_color =  field_get_items('node', $node, 'byu_feature_slider_borer_color');
+			$border_color =  field_get_items('node', $node, 'byu_feature_slider_border_color');
 			$border_color =  render(field_view_value('node', $node, 'byu_feature_slider_border_color', $border_color[0])); 
 			
 			$text_color = field_get_items('node', $node, 'byu_feature_slider_text_color'); 
@@ -41,12 +45,11 @@ $html =
 			$sort_order =  render(field_view_field('node', $node, 'byu_feature_slider_sort_order', array('label'=>'hidden'))); 
 				
 			$html .= '<li class="feature">'.
-						'<div class="feature-image"><a href="'.$link.'"><img src="'.$image.'" alt="'.$title.'"></a></div>';
-			$html .=		'<div ';
+						'<div class="feature-image"><a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
+			$html .=	'<div ';
 			
-			if ($color != '') $html .= 'data-background="'.$color.'"';
-			if ($border_color != '') $html .= 'data-shadow="'.$border_color.'"';
-			
+			if ($color != '') $html .= 'data-background="'.$color.'" ';
+			if ($border_color != '') $html .= 'data-shadow="'.$border_color.'" ';
 			$html .= 'class="feature-description '.$text_color.'">'.
 					 '<h2><a href="'.$link.'">'.$title.'</h2></a>'.
 					 '<p>'.$body.'</p>'.

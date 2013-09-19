@@ -7,42 +7,13 @@
  * Drupal runs this function after hook_schema().
  */
 function byu_feature_slider_install() {
-	// Ensure the blog node type is available.
-//			node_types_rebuild();
-//			$types = node_type_get_types();
-//			node_add_body_field($types['byu_feature_slider']);	
+	// Turn off comments
+	variable_set('comment_byu_feature_slider', '1');
 	
-//  // Make sure a content type doesn't already exist
-//  if (!in_array('byu_feature_slider', node_type_get_names())) {
-//    $type = array(
-//      'type' => 'byu_feature_slider',
-//      'name' => st('BYU Feature Slider'),
-//      'base' => 'byu_feature_slider',
-//      'custom' => 1,
-//      'modified' => 1,
-//      'locked' => 0,
-//      'title_label' => 'Title'
-//    );
-//
-//    $type = node_type_set_defaults($type);
-//    node_type_save($type);
-//    node_add_body_field($type);
-//	}
+	// Set to publish but not promote to front page.
+	variable_set('node_options_byu_feature_slider', array('status'));
 }
-
-
-/**
- * Implements hook_schema
- * 
- * Defines the database schema in which to store the content
- */
-//function byu_feature_slider_schema() {
-//  //Specifies table name
-//  $schema['byu_feature_slider'] = array( 
-//  );
-//  return $schema;
-//}
-
+	
 
 /**
  * Runs the function when the module is enabled
@@ -62,11 +33,13 @@ function byu_feature_slider_uninstall() {
 		->execute()
 		->fetchCol(); // returns an indexed array
  
-  // Delete all the nodes at once
-  node_delete_multiple($nids);
+	// Delete all the nodes at once
+	node_delete_multiple($nids);
 	
-	//Delete the persistant variable in the variable table
+	//Delete the persistant variables from the variable table
 	variable_del('byu_slider_randomize');
+	variable_del('comment_byu_feature_slider');
+	variable_del('node_options_byu_feature_slider');
 	
 	//Delete the content type
 	node_type_delete('byu_feature_slider');
@@ -82,6 +55,8 @@ function byu_feature_slider_uninstall() {
 	
 	// purge all field information
 	field_purge_batch(1000);
+	
+	//TODO: Remove the 'Add Content' Menu Link from the navigation menu
 	
 	//Rebuild menu
 	menu_rebuild();

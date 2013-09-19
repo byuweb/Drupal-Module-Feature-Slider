@@ -8,6 +8,8 @@ dependencies[]	= "node"
 dependencies[]	= "image"
 dependencies[]	= "options"
 dependencies[]	= "text"
+dependencies[]	= "link"
+dependencies[]	= "color"
 
 files[] = byu_feature_slider.module
 files[] = byu_feature_slider.admin.inc
