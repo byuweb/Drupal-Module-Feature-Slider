@@ -4,22 +4,22 @@
  * Template file for the theming of the slider. Since the slider uses it's own markup, we want to display it in the same form.
  *
  * Available custom variables:
- * - $data: Just a test variable I'm using;
  * - $nodes: An array of node objects
- *
+ * - $randomize: Boolean if randomized feature is turned on(TRUE) or off(False).
  *
  */
 
-//Check if user selected as randomize
-
-//Pull the sort order
 
 $html = 
 	'<div id="feature">'.
 		'<ul id="slider">';
 	
 		foreach ($nodes as $node){
+		//if $randomize()
+			
+		//else go according to sort order.
 		
+			
 			//Pull the info out from the node object then set some variable names so it's easier to work with. 
 			$title = ($node->{'title'});
 			
@@ -43,7 +43,8 @@ $html =
 			$link = render(field_view_value('node', $node, 'byu_feature_slider_link', $link[0])); 
 			
 			$sort_order =  render(field_view_field('node', $node, 'byu_feature_slider_sort_order', array('label'=>'hidden'))); 
-				
+		//End variable declatations
+			
 			$html .= '<li class="feature">'.
 						'<div class="feature-image"><a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
 			$html .=	'<div ';
@@ -55,6 +56,8 @@ $html =
 					 '<p>'.$body.'</p>'.
 				'</div>'.
 			'</li>';
+			
+			//end if radomize
 		} //end foreach
 
 		$html .= '</ul>'.

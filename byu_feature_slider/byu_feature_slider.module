@@ -111,14 +111,17 @@ function _byu_feature_slider_installed_fields() {
 		'byu_feature_slider_color' => array(
 			'field_name' => 'byu_feature_slider_color',
 			'type'       => 'color_field_rgb',
+			'settings'	  => array('show_input' => 1),
 		),
 		'byu_feature_slider_border_color' => array(
 			'field_name' => 'byu_feature_slider_border_color',
 			'type'       => 'color_field_rgb',
+			'settings'	  => array('show_input' => 1),
 		),
 		'byu_feature_slider_text_color' => array(
 			'field_name' => 'byu_feature_slider_text_color',
 			'type'       => 'list_text',
+			'settings'	 => array('allowed_values' => array('Light'=> 'Light', 'Dark'=>'Dark')),
 		),
 		'byu_feature_slider_link' => array(
 			'field_name' => 'byu_feature_slider_link',
@@ -154,17 +157,15 @@ function _byu_feature_slider_installed_instances() {
 		),
 		'byu_feature_slider_color' => array(
 			'field_name'  => 'byu_feature_slider_color',
-			'label'       => t('Background Color'),
+			'label'       => t('Text Area Color'),
 			'description' => t('Select the background color of the text area.'),
-			'widget'	  => array('color_field_simple_widget'),
-			'settings'	  => array('show_input' => TRUE),
+			'widget'	  => array('type' => 'color_field_spectrum_widget'),
 		),
 		'byu_feature_slider_border_color' => array(
 			'field_name'  => 'byu_feature_slider_border_color',
-			'label'		  => t('Background Color Border'),
+			'label'		  => t('Text Area Border Color'),
 			'description' => t('Select the text area\'s edge color to which the main color will transtion.'),
-			'widget'	  => array('color_field_simple_widget'),
-			'settings'	  => array('show_input' => TRUE),
+			'widget'	  => array('type' => 'color_field_spectrum_widget'),
 		),
 		'byu_feature_slider_text_color' => array(
 			'field_name' => 'byu_feature_slider_text_color',
@@ -184,22 +185,6 @@ function _byu_feature_slider_installed_instances() {
 			'description' => t('Defines the order of the slides if the slider setting is not set to randomized.'),
 		),
 	);
-}
-
-
-/**
- * Implements hook_options_list()
- * 
- * This give the options lists to select from.
- */
-function byu_feature_slider_list_options($field, $instance, $entity_type, $entity){
-	switch ($field) {
-		case 'byu_feature_slider_text_color':
-			return array(
-				0 => 'Light',
-				1 => 'Dark'
-			);
-	}
 }
 
 
@@ -230,6 +215,7 @@ function get_published_sliders(){
 		->fields('n', array('nid'))
 		->fields('n', array('type'))
 		->condition('n.type', 'byu_feature_slider')
+		->condition('n.status', '1')
 		->execute()
 		->fetchCol(); // returns an indexed array
 
@@ -263,6 +249,7 @@ function byu_feature_slider_theme() {
 			'template' => 'byu-feature-slider-block',
 			'variables' => array(
 				'nodes' => NULL,
+				'randomize' => NULL,
 			),
 		),
 	//		'path' => drupal_get_path('module', 'byu_feature_slider') . '/templates'
@@ -284,8 +271,9 @@ function byu_feature_slider_block_view($delta = '') {
 				$block['content'] = array(
 					'#theme' => 'byu_feature_slider_block',
 					'#nodes' => get_published_sliders(),
+					'#randomize' => variable_get('byu_slider_randomize'),
 				);
-			}	
+			}
 	}
 		
 	return $block;

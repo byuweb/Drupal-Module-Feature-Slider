@@ -8,7 +8,7 @@
  */
 function byu_feature_slider_install() {
 	// Turn off comments
-	variable_set('comment_byu_feature_slider', '1');
+	variable_set('comment_byu_feature_slider', '0');
 	
 	// Set to publish but not promote to front page.
 	variable_set('node_options_byu_feature_slider', array('status'));

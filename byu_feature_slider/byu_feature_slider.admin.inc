@@ -30,6 +30,4 @@ function byu_feature_slider_admin_settings(){
 	
 	return system_settings_form($form);
 	
-	
-	
 }
