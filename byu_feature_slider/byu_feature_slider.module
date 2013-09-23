@@ -26,6 +26,17 @@ function byu_feature_slider_menu() {
 		'file' => 'byu_feature_slider.admin.inc'
 	); 
 	
+	$items['admin/config/byu'] = array(
+	'title' => 'BYU Suite',
+	'description' => 'Settings for modules the specific to BYU.',
+	'position' => 'left',
+	'weight' => -15,
+	'page callback' => 'system_admin_menu_block_page',
+	'access arguments' => array('administer site configuration'),
+	'file' => 'system.admin.inc',
+	'file path' => drupal_get_path('module', 'system'),
+    );
+	
 	return $items;
 	
 }
@@ -111,12 +122,12 @@ function _byu_feature_slider_installed_fields() {
 		'byu_feature_slider_color' => array(
 			'field_name' => 'byu_feature_slider_color',
 			'type'       => 'color_field_rgb',
-			'settings'	  => array('show_input' => 1),
+			'settings'	  => array('show_input' => 1, 'show_palette' => 1, 'palette' => '#d1e4f6' ),
 		),
 		'byu_feature_slider_border_color' => array(
 			'field_name' => 'byu_feature_slider_border_color',
 			'type'       => 'color_field_rgb',
-			'settings'	  => array('show_input' => 1),
+			'settings'	  => array('show_input' => 1, 'show_palette' => 1, 'palette' => '##91b2d2' ),
 		),
 		'byu_feature_slider_text_color' => array(
 			'field_name' => 'byu_feature_slider_text_color',
@@ -129,7 +140,8 @@ function _byu_feature_slider_installed_fields() {
 		),
 		'byu_feature_slider_sort_order' => array(
 			'field_name' => 'byu_feature_slider_sort_order',
-			'type'       => 'number_integer',
+			'type'       => 'list_integer',
+			'settings'	 => array('allowed_values' => array('1'=> '1', '2'=>'2', '3'=>'3', '4'=>'4', '5'=>'5', '6'=>'6')),
 		),
 	);
 }
@@ -168,10 +180,11 @@ function _byu_feature_slider_installed_instances() {
 			'widget'	  => array('type' => 'color_field_spectrum_widget'),
 		),
 		'byu_feature_slider_text_color' => array(
-			'field_name' => 'byu_feature_slider_text_color',
-			'label'		 => t('Light or Dark Text?'),
-			'description'=> t('The text should contrast the background color so it can be easily read.'),
-			'widget'	 => array('type'=> 'options_buttons'),
+			'field_name'  => 'byu_feature_slider_text_color',
+			'label'		  => t('Light or Dark Text'),
+			'description' => t('The text should contrast the background color so it can be easily read.'),
+			'required'	 => TRUE,
+			'widget'	  => array('type'  => 'options_buttons'),
 		),
 		'byu_feature_slider_link' => array(
 			'field_name'  => 'byu_feature_slider_link',
@@ -208,7 +221,7 @@ function byu_feature_slider_form($node, $form_state) {
  * @return 
  *   A result set of the targeted posts. Returns them as an array of node objects
  */
-function get_published_sliders(){
+function _get_published_sliders(){
 	//Get all NIDs of published feature_slider nodes.
 	// Return all nids of nodes of type "byu_feature_slider".
 	$nids = db_select('node', 'n')
@@ -221,6 +234,33 @@ function get_published_sliders(){
 
 	//Return the array node objects.
 	return node_load_multiple($nids);
+}
+
+/**
+ * Custom function to sort or randomize the array of nodes
+ * 
+ * Arguments:
+ * - $nodes The array of nodes to sort
+ * 
+ * Return:
+ * - nodes: The array of sorted nodes
+ */
+function _sort_or_randomize($nodes){
+			//Check if randomize
+		if (variable_get('byu_slider_randomize')){
+			shuffle($nodes);
+		} else {
+			//Sort according to sort order
+			foreach ($nodes as $key => $node){
+				$so = field_get_items('node', $node, 'byu_feature_slider_sort_order'); 
+				$sort_order[$key] = render(field_view_value('node', $node, 'byu_feature_slider_sort_order', $so[0]));
+				$published_time[$key] = $node->{'created'};
+			}
+			//First sort by sort order number, if undefined or has same number, go by published time.
+			array_multisort($sort_order, SORT_ASC, $published_time, SORT_DESC, $nodes);
+		}
+		
+		return $nodes;
 }
 
 
@@ -249,7 +289,6 @@ function byu_feature_slider_theme() {
 			'template' => 'byu-feature-slider-block',
 			'variables' => array(
 				'nodes' => NULL,
-				'randomize' => NULL,
 			),
 		),
 	//		'path' => drupal_get_path('module', 'byu_feature_slider') . '/templates'
@@ -270,8 +309,7 @@ function byu_feature_slider_block_view($delta = '') {
 			if (user_access('access content')) {
 				$block['content'] = array(
 					'#theme' => 'byu_feature_slider_block',
-					'#nodes' => get_published_sliders(),
-					'#randomize' => variable_get('byu_slider_randomize'),
+					'#nodes' => _sort_or_randomize(_get_published_sliders()),
 				);
 			}
 	}

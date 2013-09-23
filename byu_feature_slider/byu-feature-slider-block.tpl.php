@@ -13,13 +13,8 @@
 $html = 
 	'<div id="feature">'.
 		'<ul id="slider">';
-	
-		foreach ($nodes as $node){
-		//if $randomize()
-			
-		//else go according to sort order.
 		
-			
+		foreach ($nodes as $node){	
 			//Pull the info out from the node object then set some variable names so it's easier to work with. 
 			$title = ($node->{'title'});
 			
@@ -33,20 +28,20 @@ $html =
 			$border_color =  render(field_view_value('node', $node, 'byu_feature_slider_border_color', $border_color[0])); 
 			
 			$text_color = field_get_items('node', $node, 'byu_feature_slider_text_color'); 
-			$text_color =  render(field_view_value('node', $node, 'byu_feature_slider_text_color', $text_color[0])); 
+			$text_color =  render(field_view_value('node', $node, 'byu_feature_slider_text_color', $text_color[0]));
+			$text_color = ($text_color == 'Light') ? "lightText" : NULL;
 			
 			$image = field_get_items('node', $node, 'byu_feature_slider_image');
 			$alt = $image[0]['alt']; 
 			$image = file_create_url($image[0]['uri']);
 			
 			$link = field_get_items('node', $node, 'byu_feature_slider_link'); 
-			$link = render(field_view_value('node', $node, 'byu_feature_slider_link', $link[0])); 
-			
-			$sort_order =  render(field_view_field('node', $node, 'byu_feature_slider_sort_order', array('label'=>'hidden'))); 
-		//End variable declatations
+			$link = render(field_view_value('node', $node, 'byu_feature_slider_link', $link[0]));
+			//End variable declatations
 			
 			$html .= '<li class="feature">'.
-						'<div class="feature-image"><a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
+						'<div class="feature-image">
+						<a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
 			$html .=	'<div ';
 			
 			if ($color != '') $html .= 'data-background="'.$color.'" ';
