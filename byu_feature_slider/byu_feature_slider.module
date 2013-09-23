@@ -184,7 +184,8 @@ function _byu_feature_slider_installed_instances() {
 			'label'		  => t('Light or Dark Text'),
 			'description' => t('The text should contrast the background color so it can be easily read.'),
 			'required'	 => TRUE,
-			'widget'	  => array('type'  => 'options_buttons'),
+			'default_value' => array(0=> array('value'=>'Dark')),
+			'widget'	  => array('type'  => 'options_buttons',),
 		),
 		'byu_feature_slider_link' => array(
 			'field_name'  => 'byu_feature_slider_link',
