@@ -12,30 +12,31 @@
 /**
  * Implements hook_menu()
  * 
- * Creates menus for the 
+ * Creates menus for the module
  */
 function byu_feature_slider_menu() {
+	$items['admin/config/byu'] = array(
+		'title' => 'BYU Suite',
+		'description' => 'Settings for modules the specific to BYU.',
+		'position' => 'left',
+		'weight' => -15,
+		'page callback' => 'system_admin_menu_block_page',
+		'access arguments' => array('administer site configuration'),
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+    );
+	
 	//Specific settings menu link for the module
 	$items['admin/config/byu/byu_feature_slider'] = array(
 		'title' => 'Feature Slider',
 		'description' => 'Configuration for the BYU feature slider',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('byu_feature_slider_admin_settings'),
+		//'access arguments' => array('administer content types'),
 		'access arguments' => array('access administration pages'),
 		'type' => MENU_NORMAL_ITEM,
 		'file' => 'byu_feature_slider.admin.inc'
 	); 
-	
-	$items['admin/config/byu'] = array(
-	'title' => 'BYU Suite',
-	'description' => 'Settings for modules the specific to BYU.',
-	'position' => 'left',
-	'weight' => -15,
-	'page callback' => 'system_admin_menu_block_page',
-	'access arguments' => array('administer site configuration'),
-	'file' => 'system.admin.inc',
-	'file path' => drupal_get_path('module', 'system'),
-    );
 	
 	return $items;
 	
