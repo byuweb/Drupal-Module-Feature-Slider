@@ -91,10 +91,6 @@ function byu_feature_slider_node_type_insert($content_type) {
       field_create_instance($instance);
     }
 	
-	//Move the add featured image link to 'add content' in the Navigation menu
-	//Get Navigation mlid
-	//Set the plid of node/add/byu-feature-slider to Navigation's mlid
-	
 	//Turn off comments for the node type
 	variable_set('comment_byu_feature_slider', '1');
 	
