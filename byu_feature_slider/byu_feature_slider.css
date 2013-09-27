@@ -1,68 +1,396 @@
-#calendar {
-    display: inline;
-    float: left;
-    min-height: 416px;
-    margin-right: 23px;
-    padding: 0 57px 27px 0;
+/* Variables */
+#feature {
+  border-bottom: 1px solid #ccc;
+  margin: -1em -5.55% 0;
 }
-#calendar h2 {
-    font: bold 16px Arial,Helvetica,sans-serif;
-    color: #888;
-    padding: 32px 6px 5px;
-    margin: 0 0 15px;
-    border-bottom: 1px solid #DDD;
+#feature ul {
+  list-style: none;
+  margin: 0;
+  padding-bottom: 20px;
 }
-#calendar .day {
-    margin-bottom: 18px;
-    overflow: hidden;
-    *zoom: 1;
+#feature li {
+  display: none;
 }
-#calendar .date {
-    font-size: 20px;
-    padding-right: 6px;
+#feature li.feature {
+  display: block;
 }
-#calendar h3 {
-    clear: both;
-    font-size: 14px;
-    margin-top: 0;
-}
-#calendar a {
-    float: left;
-    width: 206px;
-    margin-bottom: 4px;
-    padding-left: 14px;
-    text-indent: -8px;
-}
-#calendar .time {
-    float: right;
-    clear: right;
-    color: #888;
-}
-#calendars {
-    border-top: solid 1px #ddd;
-    border-bottom: solid 1px #ddd;
-    padding: 12px 0;
-    margin: 0 0 12px;
-    overflow: hidden;
-    *zoom: 1;
-}
-#calendars li { list-style: none }
-
-#calendars { width: 288px }
-#calendar a {
-    width: 194px;
-    font-size: 12px;
+#feature .feature-image {
+  text-align: center;
 }
 
-#calendar h2,
-#news h2 { padding-top: 12px }
-#feature { padding-bottom: 24px }
-#calendar div.day { padding-right: 20px }
-#calendar h2 { width: 280px }
+.feature-description {
+  margin: 0 5%;
+}
+.feature-description h2 {
+  font-size: 18px;
+  line-height: 20px;
+  margin: 20px 0px 10px;
+}
 
-#event .time {
-font-size: 11px;
-color: #444;
-margin: 0;
-font-weight: bold;
+/* Variables */
+.anythingSlider,
+.anythingSlider #slider,
+.anythingSlider .fade .panel {
+  width: 100% !important;
+}
+
+#feature .anythingSlider ul {
+  padding-bottom: 0;
+}
+#feature .anythingSlider li {
+  display: list-item;
+}
+
+.anythingSlider {
+  padding-bottom: 20px;
+}
+.anythingSlider .anythingControls, .anythingSlider .arrow a, .anythingSlider .arrow:after {
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+.anythingSlider.anythingSlider-hovered .arrow a, .touch .anythingSlider .arrow a {
+  opacity: .1;
+}
+.anythingSlider.anythingSlider-hovered .anythingControls,
+.anythingSlider.anythingSlider-hovered .arrow:after, .touch .anythingSlider .anythingControls,
+.touch .anythingSlider .arrow:after {
+  opacity: 1;
+}
+.anythingSlider li {
+  display: block;
+}
+.anythingSlider .arrow {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  border-radius: 25px;
+}
+.anythingSlider .arrow:after {
+  pointer-events: none;
+  display: block;
+  font-family: "FontAwesome";
+  content: "\f104";
+  color: white;
+  text-indent: 0;
+  font-size: 50px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  top: 50%;
+  left: 50%;
+  margin: -12px 0 0 -10px;
+}
+.anythingSlider .arrow a {
+  text-indent: -999em;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+.anythingSlider .arrow a:hover {
+  text-decoration: none;
+  opacity: .3;
+}
+.anythingSlider .arrow.forward {
+  left: auto;
+  right: 0;
+}
+.anythingSlider .arrow.forward:after {
+  content: "\f105";
+}
+.anythingSlider .arrow:hover {
+  opacity: 1;
+}
+
+.anythingControls {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 0px;
+  z-index: 2;
+  text-align: center;
+}
+.anythingControls .thumbNav {
+  display: inline-block;
+  margin: 0 auto;
+}
+.anythingControls li {
+  display: inline-block !important;
+  margin: 0 5px;
+}
+.anythingControls a {
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  text-indent: -999em;
+  overflow: hidden;
+  opacity: .15;
+}
+.anythingControls a.cur, .anythingControls a:hover {
+  opacity: .3;
+}
+
+@media all and (min-width: 600px) {
+  #feature {
+    margin: -1em -11% 0;
+  }
+
+  .feature-description {
+    margin: 0 8% 0 9%;
+  }
+  .feature-description h2 {
+    font-size: 24px;
+    line-height: 30px;
+    margin: 20px 0px 10px;
+  }
+}
+@media all and (max-width: 939px) {
+  .feature-description {
+    border-left: none !important;
+    background-color: transparent !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
+@media all and (min-width: 940px) {
+  #feature {
+    border-bottom: none;
+  }
+  #feature .feature-image {
+    text-align: left;
+  }
+
+  #feature #slider {
+    width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding-bottom: 0;
+  }
+
+  .anythingSlider {
+    padding-bottom: 0;
+  }
+
+  .anythingWindow {
+    width: 940px !important;
+    height: 393px !important;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .anythingControls {
+    width: 240px;
+    right: 50%;
+    bottom: 15px;
+    margin-right: -470px;
+  }
+
+  .feature-description {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 190px;
+    margin: 0;
+    background-color: #e0edf9;
+    height: 393px;
+    padding: 0 25px;
+    border-left: 1px solid #e0edf9;
+    -webkit-box-shadow: inset 0 0 110px 5px rgba(145, 178, 210, 0.5), 0 0 12px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 0 110px 5px rgba(145, 178, 210, 0.5), 0 0 12px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 110px 5px rgba(145, 178, 210, 0.5), 0 0 12px rgba(0, 0, 0, 0.25);
+  }
+  .feature-description a, .feature-description a:link, .feature-description a:visited, .feature-description a:active, .feature-description a:hover, .feature-description a:focus {
+    color: #336699;
+  }
+  .feature-description.lightText {
+    color: white;
+  }
+  .feature-description.lightText * {
+    opacity: 0.75;
+  }
+  .feature-description.lightText a, .feature-description.lightText a:link, .feature-description.lightText a:visited, .feature-description.lightText a:active, .feature-description.lightText a:hover, .feature-description.lightText a:focus {
+    color: white;
+    opacity: 1;
+  }
+}
+/*
+	AnythingSlider v1.8+ Default theme
+	By Chris Coyier: http://css-tricks.com
+	with major improvements by Doug Neiner: http://pixelgraphics.us/
+	based on work by Remy Sharp: http://jqueryfordesigners.com/
+*/
+/*****************************
+  SET DEFAULT DIMENSIONS HERE
+ *****************************/
+/* change the ID & dimensions to match your slider */
+#slider {
+  width: 100%;
+  height: auto;
+  list-style: none;
+  /* Prevent FOUC (see FAQ page) and keep things readable if javascript is disabled */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/******************
+  SET STYLING HERE
+ ******************
+
+
+/***********************
+  IE8 AND OLDER STYLING
+ ***********************/
+/* Navigation Arrows */
+.as-oldie .anythingSlider-default .arrow {
+  top: 30%;
+}
+
+.as-oldie .anythingSlider-default .arrow a {
+  margin: 0;
+}
+
+/* margin between nav buttons just looks better */
+.as-oldie .anythingSlider-default .anythingControls li {
+  margin-left: 3px;
+}
+
+/* When using the navigationSize option, the side margins need to be zero
+	None of the navigation panels look good in IE7 now =( */
+.as-oldie .anythingSlider-default .anythingControls a {
+  margin: 0;
+}
+
+.as-oldie .anythingSlider-default .anythingNavWindow {
+  margin: 0 2px;
+}
+
+.as-oldie .anythingSlider-default .anythingNavWindow li {
+  padding: 3px 0 0 0;
+}
+
+/***********************
+  COMMON SLIDER STYLING
+ ***********************/
+/* Overall Wrapper */
+.anythingSlider {
+  display: block;
+  overflow: visible !important;
+  position: relative;
+}
+
+/* anythingSlider viewport window */
+.anythingSlider .anythingWindow {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* anythingSlider base (original element) */
+.anythingSlider .anythingBase {
+  background: transparent;
+  list-style: none;
+  position: absolute;
+  overflow: visible !important;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation arrow text; indent moved to span inside "a", for IE7;
+  apparently, a negative text-indent on an "a" link moves the link as well as the text */
+.anythingSlider .arrow span {
+  display: block;
+  visibility: hidden;
+}
+
+/* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
+.anythingSlider .arrow.disabled {
+  display: none;
+}
+
+/* all panels inside the slider; horizontal mode */
+.anythingSlider .panel {
+  background: transparent;
+  display: block;
+  overflow: hidden;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+/* vertical mode */
+.anythingSlider .vertical .panel {
+  float: none;
+}
+
+/* fade mode */
+.anythingSlider .fade .panel {
+  float: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* fade mode active page - visible & on top */
+.anythingSlider .fade .activePage {
+  z-index: 1;
+}
+
+/***********************
+  RTL STYLING
+ ***********************/
+/* slider autoplay right-to-left, reverse order of nav links to look better */
+.anythingSlider.rtl .anythingWindow {
+  direction: ltr;
+  unicode-bidi: bidi-override;
+}
+
+.anythingSlider.rtl .anythingControls ul {
+  float: left;
+}
+
+/* move nav link group to left */
+.anythingSlider.rtl .anythingControls ul a {
+  float: right;
+}
+
+/* reverse order of nav links */
+.anythingSlider.rtl .start-stop {
+  /* float: right; */
+}
+
+/* move start/stop button - in case you want to switch sides */
+/* probably not necessary, but added just in case */
+.anythingSlider,
+.anythingSlider .anythingWindow,
+.anythingSlider .anythingControls ul a,
+.anythingSlider .arrow a,
+.anythingSlider .start-stop {
+  transition-duration: 0;
+  -o-transition-duration: 0;
+  -moz-transition-duration: 0;
+  -webkit-transition-duration: 0;
 }

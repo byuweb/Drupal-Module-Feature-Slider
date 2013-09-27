@@ -9,7 +9,7 @@ dependencies[]	= "image"
 dependencies[]	= "options"
 dependencies[]	= "text"
 dependencies[]	= "link"
-dependencies[]	= "color"
+dependencies[]	= "color_field"
 
 files[] = byu_feature_slider.module
 files[] = byu_feature_slider.admin.inc

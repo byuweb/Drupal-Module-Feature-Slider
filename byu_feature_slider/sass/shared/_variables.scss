@@ -1,0 +1,29 @@
+
+/* Variables */
+
+
+// Paths
+$asset-base: 'http://byuweb.github.com/Global-Assets/';
+//$asset-base: 'http://home.byu.edu/home/sites/default/files/global/';
+
+
+
+// Screen sizes & other measurements
+
+$small-width:300px;	// Doesn't need to be explicitly used, as responsive styles aren't loaded until 300px
+$med-width: 600px;	// Tablets
+$large-width: 900px;	// Tablets, desktops
+$larger-width: 1146px;	// Desktops
+$extralarge-width: 1500px;	// For the lucky ones who have a huge screen...
+
+$full-menu-width: 899px; // Menu should be in the header at this screen width. 
+
+
+
+// Fonts
+$sans-font-stack: "Whitney SSm A", "Whitney SSm B", /*"OpenSans", "Thonburi", "DroidSans", "Droid Sans", "sans-serif", "Lucida Grande","Lucida Sans Unicode","Lucida Sans",*/ Helvetica,Arial,sans-serif;
+$sans-font-weight: 400;
+$serif-font-stack: "Sentinel SSm A", "Sentinel SSm B", "CreteRound", "Palatino", "DroidSerif", "Droid Serif", Georgia, serif;
+$serif-font-weight: 500;
+$byu-font-stack: "Requiem Text A", "Requiem Text B", "Palatino", Georgia, serif;
+$byu-font-weight: 400;
