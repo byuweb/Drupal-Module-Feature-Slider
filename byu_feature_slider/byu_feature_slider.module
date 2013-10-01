@@ -124,7 +124,7 @@ function _byu_feature_slider_installed_fields() {
 		'byu_feature_slider_border_color' => array(
 			'field_name' => 'byu_feature_slider_border_color',
 			'type'       => 'color_field_rgb',
-			'settings'	  => array('show_input' => 1, 'show_palette' => 1, 'palette' => '##91b2d2' ),
+			'settings'	  => array('show_input' => 1, 'show_palette' => 1, 'palette' => '#91b2d2' ),
 		),
 		'byu_feature_slider_text_color' => array(
 			'field_name' => 'byu_feature_slider_text_color',
