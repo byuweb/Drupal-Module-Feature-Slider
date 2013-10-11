@@ -244,14 +244,15 @@ function _get_published_sliders(){
  * - nodes: The array of sorted nodes
  */
 function _sort_or_randomize($nodes){
-			//Check if randomize
+		//Check if randomize
 		if (variable_get('byu_slider_randomize')){
 			shuffle($nodes);
 		} else {
 			//Sort according to sort order
 			foreach ($nodes as $key => $node){
-				$so = field_get_items('node', $node, 'byu_feature_slider_sort_order'); 
-				$sort_order[$key] = render(field_view_value('node', $node, 'byu_feature_slider_sort_order', $so[0]));
+				$so = field_get_items('node', $node, 'byu_feature_slider_sort_order');
+				$order = field_view_value('node', $node, 'byu_feature_slider_sort_order', $so[0]);
+				$sort_order[$key] = render($order);
 				$published_time[$key] = $node->{'created'};
 			}
 			//First sort by sort order number, if undefined or has same number, go by published time.
@@ -276,7 +277,7 @@ function byu_feature_slider_block_info() {
 }
 
 
-/*
+/**
  * Implementation of hook_theme().
  * 
  * Registers the template file with the module so Drupal is aware and knows to use it.

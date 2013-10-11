@@ -1,26 +1,33 @@
 /* Variables */
+/* line 2, ../sass/_base.scss */
 #feature {
   border-bottom: 1px solid #ccc;
   margin: -1em -5.55% 0;
 }
+/* line 5, ../sass/_base.scss */
 #feature ul {
   list-style: none;
   margin: 0;
   padding-bottom: 20px;
 }
+/* line 10, ../sass/_base.scss */
 #feature li {
   display: none;
 }
+/* line 12, ../sass/_base.scss */
 #feature li.feature {
   display: block;
 }
+/* line 16, ../sass/_base.scss */
 #feature .feature-image {
   text-align: center;
 }
 
+/* line 21, ../sass/_base.scss */
 .feature-description {
   margin: 0 5%;
 }
+/* line 23, ../sass/_base.scss */
 .feature-description h2 {
   font-size: 18px;
   line-height: 20px;
@@ -28,22 +35,27 @@
 }
 
 /* Variables */
+/* line 7, ../sass/_slider.scss */
 .anythingSlider,
 .anythingSlider #slider,
 .anythingSlider .fade .panel {
   width: 100% !important;
 }
 
+/* line 12, ../sass/_slider.scss */
 #feature .anythingSlider ul {
   padding-bottom: 0;
 }
+/* line 15, ../sass/_slider.scss */
 #feature .anythingSlider li {
   display: list-item;
 }
 
+/* line 20, ../sass/_slider.scss */
 .anythingSlider {
   padding-bottom: 20px;
 }
+/* line 25, ../sass/_slider.scss */
 .anythingSlider .anythingControls, .anythingSlider .arrow a, .anythingSlider .arrow:after {
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
@@ -51,48 +63,53 @@
   transition: opacity 0.2s ease;
   opacity: 0;
 }
+/* line 30, ../sass/_slider.scss */
 .anythingSlider.anythingSlider-hovered .arrow a, .touch .anythingSlider .arrow a {
-  opacity: .1;
+  opacity: 0;
 }
+/* line 34, ../sass/_slider.scss */
 .anythingSlider.anythingSlider-hovered .anythingControls,
 .anythingSlider.anythingSlider-hovered .arrow:after, .touch .anythingSlider .anythingControls,
 .touch .anythingSlider .arrow:after {
   opacity: 1;
 }
+/* line 39, ../sass/_slider.scss */
 .anythingSlider li {
   display: block;
 }
+/* line 43, ../sass/_slider.scss */
 .anythingSlider .arrow {
   display: block;
   position: absolute;
   z-index: 3;
-  top: 50%;
+  top: 196px;
   left: 0;
-  width: 60px;
+  width: 50px;
   height: 60px;
   margin-top: -30px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
-  border-radius: 25px;
 }
+/* line 53, ../sass/_slider.scss */
 .anythingSlider .arrow:after {
   pointer-events: none;
   display: block;
-  font-family: "FontAwesome";
-  content: "\f104";
+  content: "";
   color: white;
   text-indent: 0;
   font-size: 50px;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   position: absolute;
-  width: 20px;
-  height: 30px;
+  width: 30px;
+  height: 40px;
+  background: transparent url("img/slider-nav.png") top left no-repeat;
   top: 50%;
-  left: 50%;
-  margin: -12px 0 0 -10px;
+  left: 40%;
+  margin: -20px 0 0 -10px;
 }
+/* line 68, ../sass/_slider.scss */
+.svg .anythingSlider .arrow:after {
+  background-image: url("img/slider-nav.svg");
+}
+/* line 74, ../sass/_slider.scss */
 .anythingSlider .arrow a {
   text-indent: -999em;
   position: absolute;
@@ -100,21 +117,44 @@
   height: 100%;
   background-color: black;
 }
+/* line 81, ../sass/_slider.scss */
 .anythingSlider .arrow a:hover {
   text-decoration: none;
-  opacity: .3;
+  opacity: .25;
 }
+/* line 87, ../sass/_slider.scss */
+.anythingSlider .arrow.back a {
+  -moz-border-radius-topright: 20%;
+  -webkit-border-top-right-radius: 20%;
+  border-top-right-radius: 20%;
+  -moz-border-radius-bottomright: 20%;
+  -webkit-border-bottom-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+}
+/* line 92, ../sass/_slider.scss */
 .anythingSlider .arrow.forward {
   left: auto;
   right: 0;
 }
-.anythingSlider .arrow.forward:after {
-  content: "\f105";
+/* line 96, ../sass/_slider.scss */
+.anythingSlider .arrow.forward a {
+  -moz-border-radius-topleft: 20%;
+  -webkit-border-top-left-radius: 20%;
+  border-top-left-radius: 20%;
+  -moz-border-radius-bottomleft: 20%;
+  -webkit-border-bottom-left-radius: 20%;
+  border-bottom-left-radius: 20%;
 }
+/* line 101, ../sass/_slider.scss */
+.anythingSlider .arrow.forward:after {
+  background-position: -30px 0;
+}
+/* line 105, ../sass/_slider.scss */
 .anythingSlider .arrow:hover {
   opacity: 1;
 }
 
+/* line 113, ../sass/_slider.scss */
 .anythingControls {
   position: absolute;
   width: 100%;
@@ -123,14 +163,17 @@
   z-index: 2;
   text-align: center;
 }
+/* line 120, ../sass/_slider.scss */
 .anythingControls .thumbNav {
   display: inline-block;
   margin: 0 auto;
 }
+/* line 124, ../sass/_slider.scss */
 .anythingControls li {
   display: inline-block !important;
   margin: 0 5px;
 }
+/* line 128, ../sass/_slider.scss */
 .anythingControls a {
   -webkit-transition: opacity 0.2s ease;
   -moz-transition: opacity 0.2s ease;
@@ -144,18 +187,22 @@
   overflow: hidden;
   opacity: .15;
 }
+/* line 137, ../sass/_slider.scss */
 .anythingControls a.cur, .anythingControls a:hover {
   opacity: .3;
 }
 
 @media all and (min-width: 600px) {
+  /* line 148, ../sass/_slider.scss */
   #feature {
     margin: -1em -11% 0;
   }
 
+  /* line 151, ../sass/_slider.scss */
   .feature-description {
     margin: 0 8% 0 9%;
   }
+  /* line 153, ../sass/_slider.scss */
   .feature-description h2 {
     font-size: 24px;
     line-height: 30px;
@@ -163,6 +210,7 @@
   }
 }
 @media all and (max-width: 939px) {
+  /* line 166, ../sass/_slider.scss */
   .feature-description {
     border-left: none !important;
     background-color: transparent !important;
@@ -172,13 +220,16 @@
   }
 }
 @media all and (min-width: 940px) {
+  /* line 174, ../sass/_slider.scss */
   #feature {
     border-bottom: none;
   }
+  /* line 176, ../sass/_slider.scss */
   #feature .feature-image {
     text-align: left;
   }
 
+  /* line 181, ../sass/_slider.scss */
   #feature #slider {
     width: 940px;
     margin-left: auto;
@@ -187,10 +238,12 @@
     padding-bottom: 0;
   }
 
+  /* line 189, ../sass/_slider.scss */
   .anythingSlider {
     padding-bottom: 0;
   }
 
+  /* line 193, ../sass/_slider.scss */
   .anythingWindow {
     width: 940px !important;
     height: 393px !important;
@@ -198,6 +251,7 @@
     position: relative;
   }
 
+  /* line 200, ../sass/_slider.scss */
   .anythingControls {
     width: 240px;
     right: 50%;
@@ -205,6 +259,7 @@
     margin-right: -470px;
   }
 
+  /* line 207, ../sass/_slider.scss */
   .feature-description {
     position: absolute;
     top: 0;
@@ -219,15 +274,19 @@
     -moz-box-shadow: inset 0 0 110px 5px rgba(145, 178, 210, 0.5), 0 0 12px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 110px 5px rgba(145, 178, 210, 0.5), 0 0 12px rgba(0, 0, 0, 0.25);
   }
+  /* line 219, ../sass/_slider.scss */
   .feature-description a, .feature-description a:link, .feature-description a:visited, .feature-description a:active, .feature-description a:hover, .feature-description a:focus {
     color: #336699;
   }
+  /* line 222, ../sass/_slider.scss */
   .feature-description.lightText {
     color: white;
   }
+  /* line 224, ../sass/_slider.scss */
   .feature-description.lightText * {
     opacity: 0.75;
   }
+  /* line 227, ../sass/_slider.scss */
   .feature-description.lightText a, .feature-description.lightText a:link, .feature-description.lightText a:visited, .feature-description.lightText a:active, .feature-description.lightText a:hover, .feature-description.lightText a:focus {
     color: white;
     opacity: 1;
@@ -243,6 +302,7 @@
   SET DEFAULT DIMENSIONS HERE
  *****************************/
 /* change the ID & dimensions to match your slider */
+/* line 12, ../sass/_anythingslider.scss */
 #slider {
   width: 100%;
   height: auto;
@@ -261,29 +321,35 @@
   IE8 AND OLDER STYLING
  ***********************/
 /* Navigation Arrows */
+/* line 31, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .arrow {
   top: 30%;
 }
 
+/* line 34, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .arrow a {
   margin: 0;
 }
 
 /* margin between nav buttons just looks better */
+/* line 39, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .anythingControls li {
   margin-left: 3px;
 }
 
 /* When using the navigationSize option, the side margins need to be zero
 	None of the navigation panels look good in IE7 now =( */
+/* line 45, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .anythingControls a {
   margin: 0;
 }
 
+/* line 48, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .anythingNavWindow {
   margin: 0 2px;
 }
 
+/* line 51, ../sass/_anythingslider.scss */
 .as-oldie .anythingSlider-default .anythingNavWindow li {
   padding: 3px 0 0 0;
 }
@@ -292,6 +358,7 @@
   COMMON SLIDER STYLING
  ***********************/
 /* Overall Wrapper */
+/* line 59, ../sass/_anythingslider.scss */
 .anythingSlider {
   display: block;
   overflow: visible !important;
@@ -299,6 +366,7 @@
 }
 
 /* anythingSlider viewport window */
+/* line 65, ../sass/_anythingslider.scss */
 .anythingSlider .anythingWindow {
   overflow: hidden;
   position: relative;
@@ -307,6 +375,7 @@
 }
 
 /* anythingSlider base (original element) */
+/* line 72, ../sass/_anythingslider.scss */
 .anythingSlider .anythingBase {
   background: transparent;
   list-style: none;
@@ -320,17 +389,20 @@
 
 /* Navigation arrow text; indent moved to span inside "a", for IE7;
   apparently, a negative text-indent on an "a" link moves the link as well as the text */
+/* line 85, ../sass/_anythingslider.scss */
 .anythingSlider .arrow span {
   display: block;
   visibility: hidden;
 }
 
 /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
+/* line 90, ../sass/_anythingslider.scss */
 .anythingSlider .arrow.disabled {
   display: none;
 }
 
 /* all panels inside the slider; horizontal mode */
+/* line 94, ../sass/_anythingslider.scss */
 .anythingSlider .panel {
   background: transparent;
   display: block;
@@ -341,11 +413,13 @@
 }
 
 /* vertical mode */
+/* line 103, ../sass/_anythingslider.scss */
 .anythingSlider .vertical .panel {
   float: none;
 }
 
 /* fade mode */
+/* line 107, ../sass/_anythingslider.scss */
 .anythingSlider .fade .panel {
   float: none;
   position: absolute;
@@ -355,6 +429,7 @@
 }
 
 /* fade mode active page - visible & on top */
+/* line 115, ../sass/_anythingslider.scss */
 .anythingSlider .fade .activePage {
   z-index: 1;
 }
@@ -363,27 +438,32 @@
   RTL STYLING
  ***********************/
 /* slider autoplay right-to-left, reverse order of nav links to look better */
+/* line 123, ../sass/_anythingslider.scss */
 .anythingSlider.rtl .anythingWindow {
   direction: ltr;
   unicode-bidi: bidi-override;
 }
 
+/* line 127, ../sass/_anythingslider.scss */
 .anythingSlider.rtl .anythingControls ul {
   float: left;
 }
 
 /* move nav link group to left */
+/* line 128, ../sass/_anythingslider.scss */
 .anythingSlider.rtl .anythingControls ul a {
   float: right;
 }
 
 /* reverse order of nav links */
+/* line 129, ../sass/_anythingslider.scss */
 .anythingSlider.rtl .start-stop {
   /* float: right; */
 }
 
 /* move start/stop button - in case you want to switch sides */
 /* probably not necessary, but added just in case */
+/* line 136, ../sass/_anythingslider.scss */
 .anythingSlider,
 .anythingSlider .anythingWindow,
 .anythingSlider .anythingControls ul a,

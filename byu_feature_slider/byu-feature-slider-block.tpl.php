@@ -19,16 +19,17 @@ $html =
 			$title = ($node->{'title'});
 			
 			$body = field_get_items('node', $node, 'body'); 
-			$body =  render(field_view_value('node', $node, 'body', $body[0])); 
+			$body = field_view_value('node', $node, 'body', $body[0]); 
 			
-			$color =  field_get_items('node', $node, 'byu_feature_slider_color');
-			$color =  render(field_view_value('node', $node, 'byu_feature_slider_color', $color[0])); 
+			$color = field_get_items('node', $node, 'byu_feature_slider_color');
+			$color = field_view_value('node', $node, 'byu_feature_slider_color', $color[0]); 
 			
-			$border_color =  field_get_items('node', $node, 'byu_feature_slider_border_color');
-			$border_color =  render(field_view_value('node', $node, 'byu_feature_slider_border_color', $border_color[0])); 
+			$border_color = field_get_items('node', $node, 'byu_feature_slider_border_color');
+			$border_color = field_view_value('node', $node, 'byu_feature_slider_border_color', $border_color[0]); 
 			
 			$text_color = field_get_items('node', $node, 'byu_feature_slider_text_color'); 
-			$text_color =  render(field_view_value('node', $node, 'byu_feature_slider_text_color', $text_color[0]));
+			$text_color = field_view_value('node', $node, 'byu_feature_slider_text_color', $text_color[0]);
+			$text_color = render($text_color);
 			$text_color = ($text_color == 'Light') ? "lightText" : NULL;
 			
 			$image = field_get_items('node', $node, 'byu_feature_slider_image');
@@ -36,19 +37,19 @@ $html =
 			$image = file_create_url($image[0]['uri']);
 			
 			$link = field_get_items('node', $node, 'byu_feature_slider_link'); 
-			$link = render(field_view_value('node', $node, 'byu_feature_slider_link', $link[0]));
+			$link = field_view_value('node', $node, 'byu_feature_slider_link', $link[0]);
 			//End variable declatations
 			
 			$html .= '<li class="feature">'.
 						'<div class="feature-image">
-						<a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
+						<a href="'.render($link).'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
 			$html .=	'<div ';
 			
-			if ($color != '') $html .= 'data-background="'.$color.'" ';
-			if ($border_color != '') $html .= 'data-shadow="'.$border_color.'" ';
+			if (render($color) != '') $html .= 'data-background="'.$color.'" ';
+			if (render($border_color) != '') $html .= 'data-shadow="'.$border_color.'" ';
 			$html .= 'class="feature-description '.$text_color.'">'.
-					 '<h2><a href="'.$link.'">'.$title.'</h2></a>'.
-					 '<p>'.$body.'</p>'.
+					 '<h2><a href="'.render($link).'">'.$title.'</h2></a>'.
+					 '<p>'.render($body).'</p>'.
 				'</div>'.
 			'</li>';
 			
