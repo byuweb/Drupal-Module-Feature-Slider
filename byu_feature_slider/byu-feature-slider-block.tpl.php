@@ -38,17 +38,20 @@ $html =
 			
 			$link = field_get_items('node', $node, 'byu_feature_slider_link'); 
 			$link = field_view_value('node', $node, 'byu_feature_slider_link', $link[0]);
-			//End variable declatations
+			$link = $link["#element"]["url"];
+			//End variable declarations
 			
 			$html .= '<li class="feature">'.
-						'<div class="feature-image">
-						<a href="'.render($link).'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
+						'<div class="feature-image"><a href="'.$link.'"><img src="'.$image.'" alt="'.$alt.'"></a></div>';
 			$html .=	'<div ';
 			
-			if (render($color) != '') $html .= 'data-background="'.$color.'" ';
-			if (render($border_color) != '') $html .= 'data-shadow="'.$border_color.'" ';
+			if (render($color) != '') 
+				$html .= 'data-background="'.$color.'" ';
+			if (render($border_color) != '') 
+				$html .= 'data-shadow="'.$border_color.'"';
+			
 			$html .= 'class="feature-description '.$text_color.'">'.
-					 '<h2><a href="'.render($link).'">'.$title.'</h2></a>'.
+					 '<h2><a href="'.$link.'">'.$title.'</h2></a>'.
 					 '<p>'.render($body).'</p>'.
 				'</div>'.
 			'</li>';
